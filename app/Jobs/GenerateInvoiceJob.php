@@ -10,13 +10,17 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
+use Faker;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
+use LaravelDaily\Invoices\Classes\Party;
+use LaravelDaily\Invoices\Facades\Invoice;
 
 class GenerateInvoiceJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $tries = 5;
-    public $timeout = 120;
+    // public $tries = 5;
+    // public $timeout = 120;
 
     /**
      * Create a new job instance.
@@ -31,12 +35,6 @@ class GenerateInvoiceJob implements ShouldQueue
      */
     public function handle(): void
     {
-        // $users = User::take(5)->get();
-        // $email = 'mnaimdev@gmail.com';
-        // $name = 'Mohammad Naim';
-
-        // foreach ($users as $user) {
-        //     SendingMailJob::dispatch($email, $name);
-        // }
+        GenerateSingleInvoiceJob::dispatch();
     }
 }
