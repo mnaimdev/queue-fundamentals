@@ -9,17 +9,18 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class DemoMail extends Mailable
+class EmailSendingFailMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public $user;
-    public function __construct($user)
+    private $user, $error;
+    public function __construct($user, $error)
     {
         $this->user = $user;
+        $this->error = $error;
     }
 
     /**
@@ -28,7 +29,7 @@ class DemoMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Demo Mail',
+            subject: 'Email Sending Fail Mail',
             to: $this->user,
         );
     }
@@ -39,7 +40,7 @@ class DemoMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'demo',
+            view: 'error-mail'
         );
     }
 

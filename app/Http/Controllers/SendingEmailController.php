@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SendingMailEvent;
+use App\Jobs\GenerateInvoiceJob;
+use App\Jobs\SendingMailJob;
 use App\Mail\DemoMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -12,10 +15,27 @@ class SendingEmailController extends Controller
     {
         try {
             $user = 'mnaimdev@gmail.com';
+            $name = 'Mohammad Naim';
 
-            Mail::queue(new DemoMail($user));
+            // Mail::queue(new DemoMail($user));
+
+            // SendingMailEvent::dispatch($user);
+
+            SendingMailJob::dispatch($user, $name);
 
             dd('sent');
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function generateInvoice()
+    {
+        try {
+            // long running jobs
+            GenerateInvoiceJob::dispatch();
+
+            dd('generated');
         } catch (\Exception $e) {
             return $e->getMessage();
         }

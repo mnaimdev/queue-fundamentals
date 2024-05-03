@@ -11,4 +11,5 @@ Route::get('/', function () {
 // email with queue
 Route::controller(SendingEmailController::class)->group(function () {
     Route::get('sending-email', 'sendingEmail');
+    Route::get('generate-invoice', 'generateInvoice');
 });
