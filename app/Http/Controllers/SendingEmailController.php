@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\SendingMailEvent;
 use App\Jobs\GenerateInvoiceJob;
+use App\Jobs\MessageSentJob;
 use App\Jobs\SendingMailJob;
 use App\Mail\DemoMail;
 use Illuminate\Http\Request;
@@ -36,6 +37,15 @@ class SendingEmailController extends Controller
             GenerateInvoiceJob::dispatch();
 
             dd('generated');
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function messageSent()
+    {
+        try {
+            MessageSentJob::dispatch();
         } catch (\Exception $e) {
             return $e->getMessage();
         }
