@@ -2,15 +2,16 @@
 
 namespace App\Jobs;
 
-use App\Models\Message;
+use  App\Mail\DepressionKillMail;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 
-class MessageSentJob implements ShouldQueue
+class DepressionJob implements ShouldQueue
 {
     use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -32,12 +33,6 @@ class MessageSentJob implements ShouldQueue
             return;
         }
 
-        $message = Message::create([
-            'user_id'           => 2,
-            'recipient_id'      => 5,
-            'message'           => 'Hi',
-        ]);
-
-        MarkAsReadJob::dispatch($message);
+        Mail::to('mnaimdev@gmail.com')->send(new DepressionKillMails());
     }
 }

@@ -13,4 +13,5 @@ Route::controller(SendingEmailController::class)->group(function () {
     Route::get('sending-email', 'sendingEmail');
     Route::get('generate-invoice', 'generateInvoice');
     Route::get('message-sent', 'messageSent');
+    Route::get('multiple-job', 'multipleJob');
 });
