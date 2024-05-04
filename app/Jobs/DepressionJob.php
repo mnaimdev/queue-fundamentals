@@ -29,10 +29,10 @@ class DepressionJob implements ShouldQueue
     public function handle(): void
     {
 
-        if ($this->batch()->cancelled()) {
-            return;
-        }
+        // if ($this->batch()->cancelled()) {
+        //     return;
+        // }
 
-        Mail::to('mnaimdev@gmail.com')->send(new DepressionKillMails());
+        Mail::to('mnaimdev@gmail.com')->send(new DepressionKillMail());
     }
 }

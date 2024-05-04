@@ -28,9 +28,9 @@ class MessageSentJob implements ShouldQueue
     public function handle(): void
     {
 
-        if ($this->batch()->cancelled()) {
-            return;
-        }
+        // if ($this->batch()->cancelled()) {
+        //     return;
+        // }
 
         $message = Message::create([
             'user_id'           => 2,

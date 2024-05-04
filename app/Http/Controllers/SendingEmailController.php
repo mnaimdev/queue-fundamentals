@@ -66,21 +66,23 @@ class SendingEmailController extends Controller
             //     })
             //     ->dispatch();
 
-            Bus::batch([
-                new DepressionJob(),
-                new MessageSentJob(),
-            ])
-                ->then(function (Batch $batch) {
-                    info('what is happening actually');
-                })
-                ->finally(function (Batch $batch) {
-                    info('all thing is done or cancel');
-                })
-                ->catch(function ($exception) {
-                    info('something went wrong' . $exception->getMessage());
-                })
-                ->dispatch();
+            // Bus::batch([
+            //     new DepressionJob(),
+            //     new MessageSentJob(),
+            // ])
+            //     ->then(function (Batch $batch) {
+            //         info('what is happening actually');
+            //     })
+            //     ->finally(function (Batch $batch) {
+            //         info('all thing is done or cancel');
+            //     })
+            //     ->catch(function ($exception) {
+            //         info('something went wrong' . $exception->getMessage());
+            //     })
+            //     ->dispatch();
 
+            MessageSentJob::dispatch();
+            DepressionJob::dispatch()->onQueue('priority');
 
             dd('done');
         } catch (\Exception $e) {
