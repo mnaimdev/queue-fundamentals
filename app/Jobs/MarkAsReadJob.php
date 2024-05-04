@@ -32,7 +32,6 @@ class MarkAsReadJob implements ShouldQueue
      */
     public function handle(): void
     {
-
         $message = Message::findOrFail($this->messageId);
 
         if ($message) {

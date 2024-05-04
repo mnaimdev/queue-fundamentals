@@ -20,6 +20,7 @@ class SendingMailJob implements ShouldQueue
     /**
      * Create a new job instance.
      */
+
     public $user;
 
     public function __construct($user, $name)
@@ -33,6 +34,14 @@ class SendingMailJob implements ShouldQueue
     public function handle(): void
     {
         Mail::send(new DemoMail($this->user));
+
+        // if ($this->attempts() < 3) {
+        //     $this->release(30);
+        // } else {
+        //     $this->release(60);
+        // }
+
+        $this->release(30);
     }
 
     public function failed(\Throwable $exception)

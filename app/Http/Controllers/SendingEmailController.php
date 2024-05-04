@@ -22,7 +22,7 @@ class SendingEmailController extends Controller
 
             // SendingMailEvent::dispatch($user);
 
-            SendingMailJob::dispatch($user, $name);
+            SendingMailJob::dispatch($user, $name)->delay(now()->addMinutes(2));
 
             dd('sent');
         } catch (\Exception $e) {
