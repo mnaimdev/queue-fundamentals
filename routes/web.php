@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SendingEmailController;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,4 +15,6 @@ Route::controller(SendingEmailController::class)->group(function () {
     Route::get('generate-invoice', 'generateInvoice');
     Route::get('message-sent', 'messageSent');
     Route::get('multiple-job', 'multipleJob');
+    Route::get('job-progress', 'progressJob');
+    Route::get('job-tracking/{batchId}', 'jobTracking')->name('tracking.job');
 });

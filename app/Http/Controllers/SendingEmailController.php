@@ -6,6 +6,7 @@ use App\Events\SendingMailEvent;
 use App\Jobs\DepressionJob;
 use App\Jobs\GenerateInvoiceJob;
 use App\Jobs\MessageSentJob;
+use App\Jobs\ProcessJob;
 use App\Jobs\SendingMailJob;
 use App\Mail\DemoMail;
 use Illuminate\Bus\Batch;
@@ -85,6 +86,28 @@ class SendingEmailController extends Controller
             DepressionJob::dispatch()->onQueue('priority');
 
             dd('done');
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function progressJob()
+    {
+        try {
+            ProcessJob::dispatch();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function jobTracking($batchId)
+    {
+        try {
+            $batch = Bus::findBatch($batchId);
+
+            return view('job-tracking', [
+                'batch' => $batch,
+            ]);
         } catch (\Exception $e) {
             return $e->getMessage();
         }
